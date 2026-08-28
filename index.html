@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CWPC Edutech</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 200vh;
+            background:
+                radial-gradient(circle at 20% 20%, #2563eb 0, transparent 25%),
+                radial-gradient(circle at 80% 30%, #9333ea 0, transparent 25%),
+                linear-gradient(135deg, #020617, #0f172a);
+            color: white;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .navbar {
+            max-width: 1250px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 14px 22px;
+
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.25),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        }
+
+        /* =========================
+           LOGO
+        ========================= */
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            text-decoration: none;
+            color: white;
+
+            font-size: 22px;
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: linear-gradient(
+                135deg,
+                #3b82f6,
+                #8b5cf6
+            );
+
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.35);
+        }
+
+        /* =========================
+           MENU
+        ========================= */
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            list-style: none;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu > li > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            padding: 11px 13px;
+
+            color: rgba(255, 255, 255, 0.88);
+            text-decoration: none;
+
+            font-size: 15px;
+            font-weight: 500;
+
+            border-radius: 10px;
+
+            transition: 0.3s ease;
+        }
+
+        .nav-menu > li > a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* =========================
+           DROPDOWN ARROW
+        ========================= */
+
+        .arrow {
+            font-size: 11px;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown:hover .arrow {
+            transform: rotate(180deg);
+        }
+
+        /* =========================
+           DROPDOWN MENU
+        ========================= */
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 0;
+
+            min-width: 230px;
+
+            padding: 10px;
+
+            list-style: none;
+
+            background: rgba(15, 23, 42, 0.88);
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            border-radius: 15px;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform: translateY(10px);
+
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+
+            padding: 11px 13px;
+
+            color: rgba(255, 255, 255, 0.85);
+
+            text-decoration: none;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            transition: 0.25s ease;
+        }
+
+        .dropdown-menu li a:hover {
+            background: rgba(59, 130, 246, 0.20);
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* =========================
+           CONNECT BUTTON
+        ========================= */
+
+        .connect-btn {
+            background: linear-gradient(
+                135deg,
+                #3b82f6,
+                #8b5cf6
+            ) !important;
+
+            color: white !important;
+
+            padding: 11px 17px !important;
+
+            box-shadow:
+                0 5px 20px rgba(59, 130, 246, 0.25);
+        }
+
+        .connect-btn:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 25px rgba(59, 130, 246, 0.40);
+        }
+
+        /* =========================
+           MOBILE BUTTON
+        ========================= */
+
+        .menu-toggle {
+            display: none;
+
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, 0.08);
+
+            cursor: pointer;
+
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 21px;
+            height: 2px;
+
+            background: white;
+
+            border-radius: 10px;
+
+            transition: 0.3s;
+        }
+
+        /* =========================
+           DEMO CONTENT
+        ========================= */
+
+        .hero {
+            min-height: 90vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 7vw, 80px);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: rgba(255,255,255,0.7);
+            font-size: 18px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1050px) {
+
+            .nav-menu {
+                gap: 0;
+            }
+
+            .nav-menu > li > a {
+                padding: 10px 8px;
+                font-size: 14px;
+            }
+
+        }
+
+        @media (max-width: 900px) {
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: absolute;
+
+                top: calc(100% + 12px);
+                left: 20px;
+                right: 20px;
+
+                display: none;
+                flex-direction: column;
+
+                align-items: stretch;
+
+                padding: 12px;
+
+                background: rgba(15, 23, 42, 0.92);
+
+                border: 1px solid rgba(255,255,255,0.15);
+
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+
+                border-radius: 16px;
+
+                box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu > li > a {
+                padding: 13px 14px;
+                font-size: 15px;
+            }
+
+            /* Mobile dropdown */
+
+            .dropdown-menu {
+                position: static;
+
+                width: 100%;
+
+                display: none;
+
+                margin-top: 4px;
+
+                padding: 5px;
+
+                background: rgba(255,255,255,0.05);
+
+                border: none;
+
+                box-shadow: none;
+
+                opacity: 1;
+                visibility: visible;
+
+                transform: none;
+            }
+
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown:hover .dropdown-menu {
+                display: none;
+            }
+
+            .dropdown.active:hover .dropdown-menu {
+                display: block;
+            }
+
+            .connect-btn {
+                margin-top: 5px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .header {
+                padding: 0 10px;
+            }
+
+            .navbar {
+                padding: 10px 13px;
+                border-radius: 15px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .logo-icon {
+                width: 37px;
+                height: 37px;
+            }
+
+            .nav-menu {
+                left: 10px;
+                right: 10px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <nav class="navbar">
+
+            <!-- Logo -->
+            <a href="#" class="logo">
+
+                <span class="logo-icon">
+                    CW
+                </span>
+
+                <span>
+                    CWPC Edutech
+                </span>
+
+            </a>
+
+
+            <!-- Navigation -->
+            <ul class="nav-menu" id="navMenu">
+
+                <li>
+                    <a href="#">
+                        Home
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="#">
+                        About
+                    </a>
+                </li>
+
+
+                <!-- Programs -->
+                <li class="dropdown" id="programDropdown">
+
+                    <a href="#">
+                        Programs
+                        <span class="arrow">▼</span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a href="#">
+                                Web Development
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                Python
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                Java
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                Machine Learning
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                SQL
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                Deep Learning
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+
+                <li>
+                    <a href="#">
+                        Outcomes
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="#">
+                        Reviews
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="#">
+                        Artificial Intelligence
+                    </a>
+                </li>
+
+
+                <li>
+                    <a
+                        href="#"
+                        class="connect-btn"
+                    >
+                        Connect Us
+                    </a>
+                </li>
+
+            </ul>
+
+
+            <!-- Mobile Menu -->
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Open Menu"
+            >
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </nav>
+
+    </header>
+
+
+    <!-- Demo Content -->
+    <section class="hero">
+
+        <div>
+
+            <h1>
+                Learn. Build. Grow.
+            </h1>
+
+            <p>
+                Welcome to CWPC Edutech
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const navMenu =
+            document.getElementById("navMenu");
+
+        const programDropdown =
+            document.getElementById("programDropdown");
+
+
+        // Open / Close mobile menu
+        menuToggle.addEventListener("click", function () {
+
+            navMenu.classList.toggle("active");
+
+        });
+
+
+        // Mobile Programs dropdown
+        programDropdown
+            .querySelector("a")
+            .addEventListener("click", function (e) {
+
+                if (window.innerWidth <= 900) {
+
+                    e.preventDefault();
+
+                    programDropdown.classList.toggle("active");
+
+                }
+
+            });
+
+
+        // Close menu when clicking outside
+        document.addEventListener("click", function (e) {
+
+            if (
+                !navMenu.contains(e.target) &&
+                !menuToggle.contains(e.target)
+            ) {
+
+                navMenu.classList.remove("active");
+
+                programDropdown.classList.remove("active");
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
